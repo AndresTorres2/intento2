@@ -70,4 +70,14 @@ public class Ruta implements Serializable {
     public void setCalles(List<Calle> calles) {
         this.calles = calles;
     }
+
+    @Override
+    public String toString() {
+        return "Ruta{" +
+                "id=" + id +
+                ", origen='" + origen + '\'' +
+                ", destino='" + destino + '\'' +
+                ", calles=" + calles +
+                '}';
+    }
 }
