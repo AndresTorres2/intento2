@@ -16,12 +16,16 @@ public class Bus implements Serializable {
     @Column(name = "capacidad")
     private int capacidad;
 
+    @Column(name = "conductorId")
+    private Conductor conductor;
+
     public Bus() {
     }
 
-    public Bus(String id, int capacidad) {
+    public Bus(String id, int capacidad, Conductor conductor) {
         this.id = id;
         this.capacidad = capacidad;
+        this.conductor = conductor;
 
     }
 
@@ -39,6 +43,12 @@ public class Bus implements Serializable {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+    public Conductor getConductor() {
+        return conductor;
+    }
+    public void setConductor(Conductor conductor) {
+        this.conductor = conductor;
     }
 
 }
