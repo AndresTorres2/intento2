@@ -1,15 +1,47 @@
 package Model.DAO;
 
 import Model.Entity.Viaje;
+import Model.Entity.Ruta;
 import jakarta.persistence.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ViajeDAO extends GenericDAO{
     public ViajeDAO() {
         super();
     }
+    private final HashMap<Integer, Viaje> viajes = new HashMap<>();
+
+    public void crearViaje(Integer id, Viaje viaje) {
+        viajes.put(id, viaje);
+    }
+    public boolean existeViaje(Integer id) {
+        return viajes.containsKey(id);
+    }
+    public void eliminarViaje(Integer id) {
+        viajes.remove(id);
+    }
+    public void actualizarViaje(Integer id, Viaje nuevoViaje) {
+        viajes.put(id, nuevoViaje);
+    }
+    public Viaje obtenerViaje(Integer id) {
+        return viajes.get(id);
+    }
+
+    public List<Viaje> filtrarPorRuta(Ruta ruta) {
+        List<Viaje> viajesFiltrados = new ArrayList<>();
+
+        for (Viaje viaje : viajes.values()) {
+            if (viaje.getRuta().equals(ruta)) {
+                viajesFiltrados.add(viaje);
+            }
+        }
+
+        return viajesFiltrados;
+    }
+
 
     public List<Object[]> listarViajesPorJornada(String jornada) {
         List<Object[]> resultList = new ArrayList<>();
