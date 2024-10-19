@@ -7,7 +7,7 @@ public class Conductor extends  Usuario{
         super();
     }
 
-    public Conductor(String id, String nombre, String apellido, String email, String phone) {
-        super(id, nombre, apellido, email, phone);
+    public Conductor(int id, String nombre, String apellido, String email, String phone, String contrasena) {
+        super(id, nombre, apellido, email, phone, contrasena);
     }
 }

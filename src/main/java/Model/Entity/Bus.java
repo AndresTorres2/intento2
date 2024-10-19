@@ -10,8 +10,8 @@ public class Bus implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
-    private String id;
+    @Column(name = "busId")
+    private String busId;
 
     @Column(name = "capacidad")
     private int capacidad;
@@ -23,24 +23,21 @@ public class Bus implements Serializable {
     }
 
     public Bus(String id, int capacidad, Conductor conductor) {
-        this.id = id;
+        this.busId = id;
         this.capacidad = capacidad;
         this.conductor = conductor;
 
     }
-
-    public String getId() {
-        return id;
+    public String getBusId() {
+        return busId;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setBusId(String busId) {
+        this.busId = busId;
     }
-
     public int getCapacidad() {
         return capacidad;
-    }
 
+    }
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
@@ -50,5 +47,8 @@ public class Bus implements Serializable {
     public void setConductor(Conductor conductor) {
         this.conductor = conductor;
     }
+
+
+
 
 }

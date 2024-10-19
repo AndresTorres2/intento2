@@ -20,7 +20,7 @@ public class Reserva implements Serializable {
     private Viaje viaje;
 
     @ManyToOne
-    @JoinColumn(name = "estudianteId", nullable = false)
+    @JoinColumn(name = "estudianteId")
     private Estudiante estudiante;
 
     @Column(name = "fecha", nullable = false)

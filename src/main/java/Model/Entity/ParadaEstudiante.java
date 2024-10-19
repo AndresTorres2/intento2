@@ -10,7 +10,7 @@ public class ParadaEstudiante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id")
-    private String estudianteId;
+    private int id;
 
     @Id
     @ManyToOne
@@ -25,14 +25,14 @@ public class ParadaEstudiante implements Serializable {
     public ParadaEstudiante() {
     }
 
-    public ParadaEstudiante(String estudianteId, Ubicacion ubicacion, Viaje viaje) {
-        this.estudianteId = estudianteId;
+    public ParadaEstudiante(int estudianteId, Ubicacion ubicacion, Viaje viaje) {
+        this.id = estudianteId;
         this.ubicacion = ubicacion;
         this.viaje = viaje;
     }
 
-    public void setEstudianteId(String estudianteId) {
-        this.estudianteId = estudianteId;
+    public void setEstudianteId(int estudianteId) {
+        this.id = estudianteId;
     }
 
     public void setUbicacion(Ubicacion ubicacion) {
@@ -43,8 +43,8 @@ public class ParadaEstudiante implements Serializable {
         this.viaje = viaje;
     }
 
-    public String getEstudianteId() {
-        return estudianteId;
+    public int getEstudianteId() {
+        return id;
     }
 
     public Ubicacion getUbicacion() {
