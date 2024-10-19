@@ -26,7 +26,32 @@ public class RutaDAOParametersTest {
                 {
                         2, "Ciudad C", "Ciudad D", null,
                         new Ruta(2, "Ciudad C", "Ciudad D", null)
+                },
+                {
+                        3, "Ciudad E", "Ciudad F", null,
+                        new Ruta(3, "Ciudad E", "Ciudad F", null)
+                },
+                {
+                        4, "Ciudad G", "Ciudad H", null,
+                        new Ruta(4, "Ciudad G", "Ciudad H", null)
+                },
+                {
+                        5, "Ciudad I", "Ciudad J", null,
+                        new Ruta(5, "Ciudad I", "Ciudad J", null)
+                },
+                {
+                        6, "Ciudad K", "Ciudad L", null,
+                        new Ruta(6, "Ciudad K", "Ciudad L", null)
+                },
+                {
+                        7, "Ciudad M", "Ciudad N", null,
+                        new Ruta(7, "Ciudad M", "Ciudad N", null)
+                },
+                {
+                        8, "Ciudad O", "Ciudad P", null,
+                        new Ruta(8, "Ciudad O", "Ciudad P", null)
                 }
+
         });
     }
 
@@ -47,6 +72,6 @@ public class RutaDAOParametersTest {
         assertEquals(rutaEsperada.getDestino(), rutaObtenida.getDestino());
         assertEquals(rutaEsperada.getCalles(), rutaObtenida.getCalles());
         System.out.println("Ruta esperada:" + rutaEsperada.toString());
-        System.out.println("Ruta Guardada:" + rutaEsperada.toString());
+        System.out.println("Ruta Guardada:" + rutaObtenida);
     }
 }

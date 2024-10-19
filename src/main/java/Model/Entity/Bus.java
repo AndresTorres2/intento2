@@ -16,7 +16,8 @@ public class Bus implements Serializable {
     @Column(name = "capacidad")
     private int capacidad;
 
-    @Column(name = "conductorId")
+    @OneToOne
+    @JoinColumn(name = "conductorId")
     private Conductor conductor;
 
     public Bus() {

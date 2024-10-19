@@ -2,40 +2,29 @@ package Model.DAO;
 
 import Model.Entity.Ruta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RutaDAO extends GenericDAO {
 
-    private static List<Ruta> rutas = new ArrayList<>();
+    private static Map<Integer, Ruta> rutas = new HashMap<>();
 
     public void guardarRuta(Ruta ruta) {
-        rutas.add(ruta);
+        rutas.put(ruta.getId(), ruta);
     }
     public boolean existeRuta(int id) {
 
-        for (Ruta r : rutas) {
-            if (r.getId() == id) {
-                return true;
-            }
-        }
-        return false;
+        return rutas.containsKey(id);
     }
 
-    public void eliminarRuta(int i) {
-        rutas.remove(i);
+    public void eliminarRuta(int id) {
+        rutas.remove(id);
     }
-    public void actualizarRuta(int index, Ruta nuevaRuta) {
-            rutas.set(index, nuevaRuta);
+    public void actualizarRuta(int id, Ruta nuevaRuta) {
+        rutas.put(id, nuevaRuta);
     }
 
-    public Ruta obtenerRuta(int i) {
-        System.out.println();
-        for (Ruta r : rutas) {
-            if (r.getId() == i) {
-                return r;
-            }
-        }
-        return null;
+    public Ruta obtenerRuta(int id) {
+        return rutas.get(id);
     }
 }

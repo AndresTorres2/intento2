@@ -75,7 +75,7 @@
 <body>
 <div class="container">
     <h1>Detalles de la Reserva</h1>
-    <h2>Bus #${reserva.viaje.bus.id}</h2>
+    <h2>Bus #${reserva.viaje.bus.busId}</h2>
     <h3>${reserva.viaje.ruta.origen} ➜ ${reserva.viaje.ruta.destino}</h3>
     <p><strong>Fecha de viaje:</strong> <fmt:formatDate value="${reserva.viaje.fecha}"
                                                         pattern="EEEE"/>, ${reserva.viaje.fecha}</p>

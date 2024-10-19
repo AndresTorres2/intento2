@@ -13,7 +13,5 @@ public class Administrador extends Usuario {
         super();
     }
 
-    public Administrador(int id, String nombre, String apellido, String email, String phone, String contrasena) {
-        super(id, nombre, apellido, email, phone, contrasena);
-    }
+
 }

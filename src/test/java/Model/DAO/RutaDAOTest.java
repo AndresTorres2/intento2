@@ -18,15 +18,15 @@ public class RutaDAOTest {
 
     @Test
     public void given_Ruta_when_Delete_then_Ruta_Is_Delete_Successfully() {
-        rutaDAO.eliminarRuta(0);
-        assertFalse(rutaDAO.existeRuta(0));
+        rutaDAO.eliminarRuta(1);
+        assertFalse(rutaDAO.existeRuta(1));
         System.out.println("Se elimino la ruta");
     }
     @Test
     public void given_Ruta_when_Update_then_Ruta_Is_Updated_Successfully() {
         Ruta rutaActualizada = new Ruta(1, "Ciudad X", "Ciudad Y", null);
         Ruta  rutaAnterior =  rutaDAO.obtenerRuta(1);
-        rutaDAO.actualizarRuta(0, rutaActualizada);
+        rutaDAO.actualizarRuta(1, rutaActualizada);
 
         Ruta rutaObtenida = rutaDAO.obtenerRuta(1);
         System.out.println("Ruta Anterior: " + rutaAnterior.toString());
