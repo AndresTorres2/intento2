@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.Entity.Calle;
+import Model.Entity.Ruta;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -50,6 +51,46 @@ public class CalleDAO extends GenericDAO {
             e.printStackTrace();
         }
         return callesConCoordenadas;
+    }
+    public List<Calle> obtenerTodasLasCalles() {
+        List<Calle> calles = new ArrayList<>();
+        try {
+
+            calles = em.createQuery("SELECT c FROM Calle c", Calle.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return calles;
+    }
+    public Calle obtenerCallePorId(int id) {
+        Calle calle = null;
+        try {
+            beginTransaction();
+            TypedQuery<Calle> query = em.createQuery("SELECT c FROM Calle c WHERE c.id = :calleId", Calle.class);
+            query.setParameter("calleId", id);
+
+            calle = query.getSingleResult();
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            e.printStackTrace();
+        }
+        return calle;
+    }
+
+    public List<Calle> obtenerCallesSeleccionadas(String[] callesIds) {
+        List<Calle> callesSeleccionadas = new ArrayList<>();
+
+        if (callesIds != null) {
+            for (String calleId : callesIds) {
+                Calle calle = obtenerCallePorId(Integer.parseInt(calleId));
+                if (calle != null) {
+                    callesSeleccionadas.add(calle);
+                }
+            }
+        }
+
+        return callesSeleccionadas;
     }
 
 }
