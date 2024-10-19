@@ -9,8 +9,6 @@ public class Estudiante extends Usuario {
 
     private static final long serialVersionUID = 1L;
 
-
-
     public Estudiante() {
     }
 

@@ -30,9 +30,7 @@ public class RutaDAO extends GenericDAO {
         return rutas.get(id);
     }
 
-
     //Implementacion con DB
-
     public List<Ruta> obtenerTodasLasRutas() {
         List<Ruta> rutas = new ArrayList<>();
         try {
