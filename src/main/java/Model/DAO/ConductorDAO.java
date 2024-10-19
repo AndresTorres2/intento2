@@ -18,12 +18,12 @@ public class ConductorDAO extends GenericDAO{
     public void eliminarConductor(int id) {
         conductores.remove(id);
     }
-    public void actualizarConductor(int id, Conductor nuevoConductor) {
-        conductores.put(id, nuevoConductor);
-    }
-
+//    public void actualizarConductor(int id, Conductor nuevoConductor) {
+//        conductores.put(id, nuevoConductor);
+//    }
     public Conductor buscarPorId(int id) {
         return conductores.get(id);
     }
+
 
 }

@@ -14,7 +14,8 @@ public class ConductorDAODeleteTest {
     @Before
     public void setUp() {
         conductorDAO = new ConductorDAO();
-        conductor = new Conductor(0, "Cristian", "Hernandez", "andres@gmail.com", "0991935087", "1234");
+        conductor = new Conductor(0, "Cristian", "Hernandez", "andres@gmail.com",
+                "0991935087", "12345");
         conductorDAO.guardarConductor(conductor);
 
     }
