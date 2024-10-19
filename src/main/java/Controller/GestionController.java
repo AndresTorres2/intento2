@@ -2,8 +2,10 @@ package Controller;
 
 import Model.DAO.CalleDAO;
 import Model.DAO.RutaDAO;
+import Model.DAO.UsuarioDAO;
 import Model.Entity.Calle;
 import Model.Entity.Ruta;
+import Model.Entity.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,12 +21,13 @@ import java.util.List;
 public class GestionController extends HttpServlet {
     RutaDAO rutaDAO ;
     CalleDAO calleDAO ;
-
+    public UsuarioDAO usuarioDAO ;
     @Override
     public void init() throws ServletException {
         super.init();
         rutaDAO = new RutaDAO();
         calleDAO = new CalleDAO();
+        usuarioDAO = new UsuarioDAO();
     }
 
     @Override
@@ -75,6 +78,9 @@ public class GestionController extends HttpServlet {
         }
 
     }
+
+
+
     public void mostrarDashboardAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/dashboardAdmin.jsp");
         dispatcher.forward(req, resp);
