@@ -216,33 +216,61 @@ public class GestionController extends HttpServlet {
     }
 
     private void actualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int viajeId = Integer.parseInt(req.getParameter("viajeId"));
-        String busId = req.getParameter("busId"); // Mantenemos busId como String
-        int rutaId = Integer.parseInt(req.getParameter("rutaId"));
-        String fecha = req.getParameter("fecha");
-        String horaDeSalida = req.getParameter("horaDeSalida");
-        String jornada = req.getParameter("jornada");
+        try {
+            int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+            String busId = req.getParameter("busId"); // Mantenemos busId como String
+            int rutaId = Integer.parseInt(req.getParameter("rutaId"));
+            String fecha = req.getParameter("fecha");
+            String horaDeSalida = req.getParameter("horaDeSalida");
+            String jornada = req.getParameter("jornada");
 
-        Bus bus = busDAO.obtenerBusPorId(busId);
-        Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
-        Date fechaViaje = Date.valueOf(fecha);
+            Bus bus = busDAO.obtenerBusPorId(busId); // Aquí deberías tener un método que acepte String
+            Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
+            Date fechaViaje = Date.valueOf(fecha);
 
+            // Asegúrate de que horaDeSalida tenga el formato adecuado
+            if (horaDeSalida != null && !horaDeSalida.isEmpty()) {
+                horaDeSalida = horaDeSalida.trim(); // Quitamos espacios extra
+            } else {
+                throw new IllegalArgumentException("Hora de salida no puede ser vacía.");
+            }
 
-        if (horaDeSalida != null && !horaDeSalida.isEmpty()) {
-            horaDeSalida += ":00"; // Añadir los segundos
+            // Verificamos si el formato es HH:mm:ss o HH:mm
+            if (!horaDeSalida.matches("\\d{2}:\\d{2}:\\d{2}") && !horaDeSalida.matches("\\d{2}:\\d{2}")) {
+                throw new IllegalArgumentException("Formato de hora de salida no válido: " + horaDeSalida);
+            }
+
+            // Si el formato es HH:mm, le agregamos los segundos
+            if (horaDeSalida.matches("\\d{2}:\\d{2}")) {
+                horaDeSalida += ":00"; // Agregamos los segundos
+            }
+
+            // Ahora intentamos crear la instancia de Time
+            Time horaSalida;
+            try {
+                horaSalida = Time.valueOf(horaDeSalida); // Utilizamos horaDeSalida ya corregida
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Formato de hora de salida no válido: " + horaDeSalida, e);
+            }
+
+            Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+            viaje.setBus(bus);
+            viaje.setRuta(ruta);
+            viaje.setFecha(fechaViaje);
+            viaje.setHoraDeSalida(horaSalida);
+            viaje.setJornada(jornada);
+
+            viajeDAO.actualizarViajeEnDB(viaje);
+            gestionarViajes(req, resp);
+        } catch (NumberFormatException e) {
+            throw new ServletException("Error al convertir los parámetros numéricos: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new ServletException("Error al actualizar el viaje: " + e.getMessage(), e);
         }
-        Time horaSalida = Time.valueOf(horaDeSalida);
-
-        Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
-        viaje.setBus(bus);
-        viaje.setRuta(ruta);
-        viaje.setFecha(fechaViaje);
-        viaje.setHoraDeSalida(horaSalida);
-        viaje.setJornada(jornada);
-
-        viajeDAO.actualizarViajeEnDB(viaje);
-        gestionarViajes(req, resp);
     }
+
+
+
 
 
 
