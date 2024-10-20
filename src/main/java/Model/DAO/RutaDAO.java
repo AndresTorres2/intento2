@@ -15,7 +15,6 @@ public class RutaDAO extends GenericDAO {
         rutas.put(ruta.getId(), ruta);
     }
     public boolean existeRuta(int id) {
-
         return rutas.containsKey(id);
     }
 

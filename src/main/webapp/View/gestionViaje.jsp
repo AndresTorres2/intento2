@@ -9,20 +9,28 @@
 <table border="1">
   <tr>
     <th>ID</th>
+    <th>Conductor</th>
     <th>Bus</th>
     <th>Fecha</th>
     <th>Hora de Salida</th>
     <th>Ruta</th>
+    <th>Recorrido</th>
     <th>Jornada</th>
     <th>Asientos Ocupados</th>
   </tr>
   <c:forEach var="viaje" items="${viajes}">
     <tr>
       <td>${viaje.id}</td>
+      <td>${viaje.bus.conductor.nombre} ${viaje.bus.conductor.apellido}</td>
       <td>${viaje.bus.busId}</td>
       <td>${viaje.fecha}</td>
       <td>${viaje.horaDeSalida}</td>
-      <td>${viaje.ruta.RutaId}</td>
+      <td>Desde : ${viaje.ruta.origen} hasta ${viaje.ruta.destino}</td>
+      <td>
+        <c:forEach var="calle" items="${viaje.ruta.calles}" varStatus="status">
+          ${calle.nombre}<c:if test="${!status.last}">, </c:if>
+        </c:forEach>
+      </td>
       <td>${viaje.jornada}</td>
       <td>${viaje.asientosOcupados}</td>
     </tr>

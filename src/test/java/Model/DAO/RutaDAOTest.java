@@ -14,13 +14,19 @@ public class RutaDAOTest {
         rutaDAO = new RutaDAO();
         rutaDAO.guardarRuta(ruta);
     }
-
-
     @Test
     public void given_Ruta_when_Delete_then_Ruta_Is_Delete_Successfully() {
         rutaDAO.eliminarRuta(1);
-        assertFalse(rutaDAO.existeRuta(1));
-        System.out.println("Se elimino la ruta");
+        boolean resultado = rutaDAO.existeRuta(1);
+        if(resultado){
+            System.out.println("No se elimino la ruta prueba fallida");
+        }
+        else {
+            System.out.println("Se elimino la ruta");
+        }
+        assertFalse(resultado);
+
+
     }
     @Test
     public void given_Ruta_when_Update_then_Ruta_Is_Updated_Successfully() {

@@ -2,6 +2,7 @@ package Model.DAO;
 
 import Model.Entity.Calle;
 import Model.Entity.Ruta;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -10,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
+
+
+
 
 @RunWith(value = Parameterized.class)
 public class RutaDAOParametersTest {
@@ -58,6 +63,7 @@ public class RutaDAOParametersTest {
     public RutaDAOParametersTest(int id, String origen, String destino, List<Calle> calles, Ruta rutaEsperada) {
         this.ruta = new Ruta(id, origen, destino, calles);
         this.rutaEsperada = rutaEsperada;
+
     }
 
     @Test
