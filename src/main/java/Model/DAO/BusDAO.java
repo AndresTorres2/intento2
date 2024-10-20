@@ -73,8 +73,8 @@ public class BusDAO extends GenericDAO {
         }
     }
 
-    // Método para eliminar un Bus de la base de datos por su ID
-    public void eliminarBusEnDB(int id) {
+
+    public void eliminarBusEnDB(String id) {
         try {
             Bus bus = em.find(Bus.class, id);
             if (bus != null) {
@@ -88,7 +88,6 @@ public class BusDAO extends GenericDAO {
         }
     }
 
-    // Método para obtener todos los Buses de la base de datos
     public List<Bus> obtenerTodosLosBuses() {
         List<Bus> buses = new ArrayList<>();
         try {

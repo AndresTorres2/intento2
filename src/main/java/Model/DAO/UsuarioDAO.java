@@ -1,6 +1,7 @@
 package Model.DAO;
 import Model.Entity.Usuario;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UsuarioDAO extends GenericDAO{
@@ -30,5 +31,9 @@ public class UsuarioDAO extends GenericDAO{
         }
         return null;
     }
+
+
+
+
 
 }

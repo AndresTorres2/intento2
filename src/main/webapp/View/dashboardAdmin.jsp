@@ -45,8 +45,8 @@
 <div class="dashboard-container">
   <h1>Dashboard Admin - PoliBus</h1>
   <div class="menu">
-    <a class="menu-item" href="">Conductores</a>
-    <a class="menu-item" href="">Buses</a>
+    <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionConductores">Conductores</a>
+    <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionBuses">Buses</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionRutas">Rutas</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionViajes">Viajes</a>
   </div>

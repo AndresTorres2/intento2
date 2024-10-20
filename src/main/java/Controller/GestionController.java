@@ -1,10 +1,6 @@
 package Controller;
 
-import Model.DAO.CalleDAO;
-import Model.DAO.RutaDAO;
-import Model.DAO.UsuarioDAO;
-import Model.DAO.ViajeDAO;
-import Model.DAO.BusDAO;
+import Model.DAO.*;
 import Model.Entity.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -25,7 +21,9 @@ public class GestionController extends HttpServlet {
     CalleDAO calleDAO ;
     ViajeDAO viajeDAO;
     BusDAO busDAO;
-    public UsuarioDAO usuarioDAO ;
+    UsuarioDAO usuarioDAO ;
+    ConductorDAO conductorDAO;
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -34,6 +32,7 @@ public class GestionController extends HttpServlet {
         usuarioDAO = new UsuarioDAO();
         viajeDAO = new ViajeDAO();
         busDAO = new BusDAO();
+        conductorDAO = new ConductorDAO();
     }
 
     @Override
@@ -97,8 +96,30 @@ public class GestionController extends HttpServlet {
             case "actualizarViaje":
                 actualizarViaje(req, resp);
                 break;
-
-
+            case "gestionConductores":
+                mostrarConductores(req,resp);
+                break;
+            case "eliminarConductor":
+                eliminarConductor(req,resp);
+                break;
+            case "nuevoConductor":
+                mostrarFormConductor(req,resp);
+                    break;
+            case "guardarConductor":
+                guardarConductor(req,resp);
+                break;
+            case "gestionBuses":
+                mostrarBuses(req,resp);
+                break;
+            case "eliminarBus":
+                eliminarBus(req,resp);
+                break;
+            case "nuevoBus":
+                mostrarFormBus(req,resp);
+                break;
+            case "guardarBus":
+                guardarBus(req,resp);
+                break;
             default:
                 break;
 
@@ -270,11 +291,69 @@ public class GestionController extends HttpServlet {
     }
 
 
+    private void mostrarConductores(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
+        req.setAttribute("conductores", conductorDAO.obtenerConductores() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");
+        dispatcher.forward(req, resp);
+    }
 
+    public void eliminarConductor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
+        conductorDAO.eliminarConductorDb(conductorId);
+        req.setAttribute("conductores", conductorDAO.obtenerConductores() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void mostrarFormConductor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/registrarConductor.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void guardarConductor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String nombre = req.getParameter("nombre");
+        String apellido = req.getParameter("apellido");
+        String email = req.getParameter("email");
+        String contrasena = req.getParameter("contrasena");
+        String telefono = req.getParameter("telefono");
+        Conductor nuevoConductor = new Conductor(0, nombre, apellido, email, telefono, contrasena);
+        conductorDAO.guardarConductorDb(nuevoConductor);
+        req.setAttribute("conductores", conductorDAO.obtenerConductores() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");
+        dispatcher.forward(req, resp);
+    }
 
+    private void mostrarBuses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
+        dispatcher.forward(req, resp);
+    }
 
+    public void eliminarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String busId = req.getParameter("busId");
+        busDAO.eliminarBusEnDB(busId);
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
+        dispatcher.forward(req,resp);
 
+    }
+    private void mostrarFormBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        List<Usuario> conductores = conductorDAO.obtenerConductores();
+        req.setAttribute("conductores", conductores );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/registrarBus.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void guardarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String busIdStr = req.getParameter("busId");
+        int capacidad = Integer.parseInt(req.getParameter("capacidad"));
+        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
+        Conductor conductor = conductorDAO.obtenerConductorDb(conductorId);
+        Bus nuevoBus = new Bus(busIdStr,capacidad,conductor);
+        busDAO.crearBusEnDB(nuevoBus);
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
+        dispatcher.forward(req,resp);
+
+    }
 
     private void forward(HttpServletRequest req, HttpServletResponse resp, String path) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher(path);

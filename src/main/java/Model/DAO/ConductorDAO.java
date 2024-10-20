@@ -1,8 +1,10 @@
 package Model.DAO;
 
 import Model.Entity.Conductor;
+import Model.Entity.Usuario;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConductorDAO extends GenericDAO{
@@ -23,6 +25,45 @@ public class ConductorDAO extends GenericDAO{
 //    }
     public Conductor buscarPorId(int id) {
         return conductores.get(id);
+    }
+
+
+
+    //IMPLEMENTACION EN LA DB
+    public List<Usuario> obtenerConductores() {
+        String jpql = "SELECT u FROM Usuario u WHERE TYPE(u) = Conductor";
+        return em.createQuery(jpql, Usuario.class).getResultList();
+    }
+    public Conductor obtenerConductorDb(int idConductor) {
+        try {
+            Conductor conductor = em.find(Conductor.class, idConductor);
+            return conductor;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public void eliminarConductorDb(int idConductor) {
+        try {
+            beginTransaction();
+                em.remove(obtenerConductorDb(idConductor));
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            System.out.println("No se encontró la ruta con ID: " + idConductor);
+            e.printStackTrace();
+        }
+    }
+    public void guardarConductorDb(Conductor conductor) {
+        try {
+            beginTransaction();
+            em.persist(conductor);
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            System.out.println("Error en crear conductor " );
+            e.printStackTrace();
+        }
     }
 
 
