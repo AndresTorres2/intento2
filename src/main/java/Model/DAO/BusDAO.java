@@ -10,19 +10,27 @@ import java.util.Map;
 
 public class BusDAO extends GenericDAO {
 
-    private static Map<String, Bus> busDatabse = new HashMap<>();
+    private static Map<String, Bus> busDatabase = new HashMap<>();
 
     public Bus createBus(String id, int capacidad, Conductor conductor) {
-        busDatabse.put(id, new Bus(id, capacidad, conductor));
-        return busDatabse.get(id);
+        busDatabase.put(id, new Bus(id, capacidad, conductor));
+        return busDatabase.get(id);
+    }
+    public void actualizarBus(String id, int nuevaCapacidad, Conductor nuevoConductor) {
+        Bus busExistente = busDatabase.get(id);
+        if (busExistente != null) {
+            busExistente.setCapacidad(nuevaCapacidad);
+            busExistente.setConductor(nuevoConductor);
+            busDatabase.put(id, busExistente);
+        }
     }
 
     public Bus deleteBus(String id) {
-        return busDatabse.remove(id);
+        return busDatabase.remove(id);
     }
 
     public Bus findBusById(String id) {
-        return busDatabse.get(id);
+        return busDatabase.get(id);
     }
 
 //implementacion con la DB
