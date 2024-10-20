@@ -89,10 +89,15 @@ public class GestionController extends HttpServlet {
                 guardarViaje(req, resp);
                 break;
             case "eliminarViaje":
+                eliminarViaje(req, resp);
                 break;
             case "formActualizarViaje":
                 mostrarFormActualizarViaje(req, resp);
                 break;
+            case "actualizarViaje":
+                actualizarViaje(req, resp);
+                break;
+
 
             default:
                 break;
@@ -178,21 +183,79 @@ public class GestionController extends HttpServlet {
 
 
     public void mostrarFormViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses());
+        req.setAttribute("rutas", rutaDAO.obtenerTodasLasRutas());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/registrarViaje.jsp");
+        dispatcher.forward(req, resp);
     }
+
 
     public void guardarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 
 
+
     public void eliminarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        viajeDAO.eliminarViajeEnDB(Integer.parseInt(req.getParameter("viajeId")));
 
+        req.setAttribute("viajes", viajeDAO.obtenerTodosLosViajes());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionViaje.jsp");
+        dispatcher.forward(req, resp);
     }
 
-    public void mostrarFormActualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+    private void mostrarFormActualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+        Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+
+        req.setAttribute("viaje", viaje);
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses());
+        req.setAttribute("rutas", rutaDAO.obtenerTodasLasRutas());
+        forward(req, resp, "/View/actualizarViaje.jsp");
     }
+
+    private void actualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+        String busId = req.getParameter("busId"); // Mantenemos busId como String
+        int rutaId = Integer.parseInt(req.getParameter("rutaId"));
+        String fecha = req.getParameter("fecha");
+        String horaDeSalida = req.getParameter("horaDeSalida");
+        String jornada = req.getParameter("jornada");
+
+        Bus bus = busDAO.obtenerBusPorId(busId);
+        Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
+        Date fechaViaje = Date.valueOf(fecha);
+
+
+        if (horaDeSalida != null && !horaDeSalida.isEmpty()) {
+            horaDeSalida += ":00"; // Añadir los segundos
+        }
+        Time horaSalida = Time.valueOf(horaDeSalida);
+
+        Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+        viaje.setBus(bus);
+        viaje.setRuta(ruta);
+        viaje.setFecha(fechaViaje);
+        viaje.setHoraDeSalida(horaSalida);
+        viaje.setJornada(jornada);
+
+        viajeDAO.actualizarViajeEnDB(viaje);
+        gestionarViajes(req, resp);
+    }
+
+
+
+
+
+    private void forward(HttpServletRequest req, HttpServletResponse resp, String path) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+        dispatcher.forward(req, resp);
+    }
+
+
+
+
 
 
 

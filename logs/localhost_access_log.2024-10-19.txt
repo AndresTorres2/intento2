@@ -39,3 +39,10 @@
 0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:33:34 -0500] "GET /demo-java-web HTTP/1.1" 302 -
 0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:34:16 -0500] "GET /demo-java-web/GestionServlet?action=dashboardAdmin HTTP/1.1" 200 1309
 0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:34:27 -0500] "GET /demo-java-web/GestionServlet?action=gestionViajes HTTP/1.1" 200 323
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:41:44 -0500] "GET /demo-java-web HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:42:08 -0500] "GET /demo-java-web/GestionServlet?action=dashboardAdmin HTTP/1.1" 200 1309
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:42:22 -0500] "GET /demo-java-web/GestionServlet?action=gestionViajes HTTP/1.1" 200 325
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:42:53 -0500] "GET /demo-java-web/GestionServlet?action=gestionRutas HTTP/1.1" 200 2680
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:53:08 -0500] "GET /demo-java-web/GestionServlet?action=dashboardAdmin HTTP/1.1" 200 1309
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:54:29 -0500] "GET /demo-java-web HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [19/Oct/2024:19:54:59 -0500] "GET /demo-java-web/GestionServlet?action=dashboardAdmin HTTP/1.1" 500 14924

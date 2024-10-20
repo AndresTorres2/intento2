@@ -48,7 +48,7 @@ public class BusDAO extends GenericDAO {
     }
 
     // Método para obtener un Bus de la base de datos por su ID
-    public Bus obtenerBusPorId(int id) {
+    public Bus obtenerBusPorId(String id) {
         Bus bus = null;
         try {
             bus = em.find(Bus.class, id);

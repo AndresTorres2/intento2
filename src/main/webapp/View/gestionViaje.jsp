@@ -17,6 +17,7 @@
     <th>Recorrido</th>
     <th>Jornada</th>
     <th>Asientos Ocupados</th>
+    <th>Acciones</th>
   </tr>
   <c:forEach var="viaje" items="${viajes}">
     <tr>
@@ -25,7 +26,7 @@
       <td>${viaje.bus.busId}</td>
       <td>${viaje.fecha}</td>
       <td>${viaje.horaDeSalida}</td>
-      <td>Desde : ${viaje.ruta.origen} hasta ${viaje.ruta.destino}</td>
+      <td>Desde: ${viaje.ruta.origen} hasta ${viaje.ruta.destino}</td>
       <td>
         <c:forEach var="calle" items="${viaje.ruta.calles}" varStatus="status">
           ${calle.nombre}<c:if test="${!status.last}">, </c:if>
@@ -33,9 +34,17 @@
       </td>
       <td>${viaje.jornada}</td>
       <td>${viaje.asientosOcupados}</td>
+      <td>
+        <a href="${pageContext.request.contextPath}/GestionServlet?action=formActualizarViaje&viajeId=${viaje.id}">Actualizar</a> |
+        <a href="${pageContext.request.contextPath}/GestionServlet?action=eliminarViaje&viajeId=${viaje.id}"
+           onclick="return confirm('¿Estás seguro de que deseas eliminar este viaje?');">Eliminar</a>
+      </td>
     </tr>
   </c:forEach>
-
 </table>
+  <a href="${pageContext.request.contextPath}/GestionServlet?action=formAgregarViaje">Agregar Nuevo Viaje</a>
+  <a href="${pageContext.request.contextPath}/View/dashboardAdmin.jsp">Volver al Dashboard Admin</a>
+
+
 </body>
 </html>
