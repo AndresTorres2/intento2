@@ -82,7 +82,7 @@ public class RutaDAO extends GenericDAO {
     public void actualizarRutaDb(Ruta ruta) {
         try {
             beginTransaction();
-            em.merge(ruta); // Usar merge para actualizar la entidad
+            em.merge(ruta);
             commitTransaction();
         } catch (Exception e) {
             rollbackTransaction();

@@ -122,6 +122,12 @@ public class GestionController extends HttpServlet {
             case "guardarBus":
                 guardarBus(req,resp);
                 break;
+            case "actualizarBus":
+                mostrarFormActualizarBus(req,resp);
+                break;
+            case "busActualizado":
+                actualizarBus(req,resp);
+                break;
             default:
                 break;
 
@@ -423,6 +429,29 @@ public class GestionController extends HttpServlet {
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
         dispatcher.forward(req,resp);
+
+    }
+    public void mostrarFormActualizarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String busIdStr = req.getParameter("busId");
+
+        req.setAttribute("bus", busDAO.obtenerBusPorId(busIdStr));
+        req.setAttribute("conductores", conductorDAO.obtenerConductores());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/actualizarBus.jsp");
+        dispatcher.forward(req,resp);
+    }
+    public void actualizarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String busIdStr = req.getParameter("busId");
+        int capacidad = Integer.parseInt(req.getParameter("capacidad"));
+        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
+        Conductor conductorActualizado = conductorDAO.obtenerConductorDb(conductorId) ;
+        Bus bus =  busDAO.obtenerBusPorId(busIdStr);
+        bus.setCapacidad(capacidad);
+        bus.setConductor(conductorActualizado);
+        busDAO.actualizarBusDb(bus);
+        req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
+        dispatcher.forward(req,resp);
+
 
     }
 

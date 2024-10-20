@@ -2,6 +2,7 @@ package Model.DAO;
 
 import Model.Entity.Bus;
 import Model.Entity.Conductor;
+import Model.Entity.Ruta;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -104,6 +105,16 @@ public class BusDAO extends GenericDAO {
             e.printStackTrace();
         }
         return buses;
+    }
+    public void actualizarBusDb(Bus bus) {
+        try {
+            beginTransaction();
+            em.merge(bus);
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            e.printStackTrace();
+        }
     }
 
 }
