@@ -1,12 +1,31 @@
 package Model.DAO;
 
 import Model.Entity.Bus;
+import Model.Entity.Conductor;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BusDAO extends GenericDAO {
 
+    private static Map<String, Bus> busDatabse = new HashMap<>();
+
+    public Bus createBus(String id, int capacidad, Conductor conductor) {
+        busDatabse.put(id, new Bus(id, capacidad, conductor));
+        return busDatabse.get(id);
+    }
+
+    public Bus deleteBus(String id) {
+        return busDatabse.remove(id);
+    }
+
+    public Bus findBusById(String id) {
+        return busDatabse.get(id);
+    }
+
+//implementacion con la DB
     public BusDAO() {
         super();
     }
