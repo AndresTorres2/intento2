@@ -1,26 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Viaje</title>
+    <title>Registrar Viaje</title>
 </head>
 <body>
-<h1>Crear Viaje</h1>
+<h2>Registrar Nuevo Viaje</h2>
+
+
 <form action="${pageContext.request.contextPath}/GestionServlet?action=guardarViaje" method="post">
+    <label for="busId">Bus:</label>
+    <select name="busId" id="busId">
+        <c:forEach var="bus" items="${buses}">
+            <option value="${bus.busId}">${bus.busId}</option>
+        </c:forEach>
+    </select>
+
     <label for="rutaId">Ruta:</label>
-    <select id="rutaId" name="rutaId" required>
+    <select name="rutaId" id="rutaId">
         <c:forEach var="ruta" items="${rutas}">
             <option value="${ruta.id}">${ruta.origen} - ${ruta.destino}</option>
         </c:forEach>
-    </select><br/><br/>
+    </select>
 
     <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" required /><br/><br/>
+    <input type="date" name="fecha" id="fecha" required>
 
     <label for="horaDeSalida">Hora de Salida:</label>
-    <input type="time" id="horaDeSalida" name="horaDeSalida" required /><br/><br/>
+    <input type="time" name="horaDeSalida" id="horaDeSalida" required>
 
-    <input type="submit" value="Crear Viaje" />
+    <label for="jornada">Jornada:</label>
+    <input type="text" name="jornada" id="jornada" required>
+
+    <button type="submit">Agregar Viaje</button>
 </form>
 </body>
 </html>

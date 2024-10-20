@@ -42,7 +42,8 @@
     </tr>
   </c:forEach>
 </table>
-  <a href="${pageContext.request.contextPath}/GestionServlet?action=formAgregarViaje">Agregar Nuevo Viaje</a>
+  <a href="${pageContext.request.contextPath}/GestionServlet?action=nuevoViaje">Agregar Nuevo Viaje</a>
+  <br>
   <a href="${pageContext.request.contextPath}/View/dashboardAdmin.jsp">Volver al Dashboard Admin</a>
 
 

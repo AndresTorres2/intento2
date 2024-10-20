@@ -75,10 +75,9 @@ public class GestionController extends HttpServlet {
                 actualizarRuta(req,resp);
                 break;
             case "dashboardEstudiante":
-                //Redireccionar al viajeControler,es decir a la vista
                 break;
 
-            case "gestionViajes": // Nueva acción para gestionar viajes
+            case "gestionViajes":
                 gestionarViajes(req, resp);
                 break;
             case "nuevoViaje":
@@ -212,8 +211,52 @@ public class GestionController extends HttpServlet {
 
 
     public void guardarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            // Obtener parámetros del formulario
+            String busId = req.getParameter("busId");
+            int rutaId = Integer.parseInt(req.getParameter("rutaId"));
+            String fecha = req.getParameter("fecha");
+            String horaDeSalida = req.getParameter("horaDeSalida");
+            String jornada = req.getParameter("jornada");
 
+
+            // Obtener bus y ruta
+            Bus bus = busDAO.obtenerBusPorId(busId);
+            Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
+            Date fechaViaje = Date.valueOf(fecha);
+
+            // Verifica el formato de hora
+            if (!horaDeSalida.matches("\\d{2}:\\d{2}:\\d{2}") && !horaDeSalida.matches("\\d{2}:\\d{2}")) {
+                throw new IllegalArgumentException("Formato de hora de salida no válido.");
+            }
+
+            // Agregar los segundos si no están presentes
+            if (horaDeSalida.matches("\\d{2}:\\d{2}")) {
+                horaDeSalida += ":00";
+            }
+
+            Time horaSalida = Time.valueOf(horaDeSalida);
+
+            // Crear el objeto Viaje
+            Viaje nuevoViaje = new Viaje();
+            nuevoViaje.setBus(bus);
+            nuevoViaje.setRuta(ruta);
+            nuevoViaje.setFecha(fechaViaje);
+            nuevoViaje.setHoraDeSalida(horaSalida);
+            nuevoViaje.setJornada(jornada);
+
+            // Guardar en la base de datos
+            viajeDAO.crearViajeEnDB(nuevoViaje);
+            gestionarViajes(req, resp);
+        } catch (Exception e) {
+            // Manejar errores y mostrar mensajes en caso de fallos
+            req.setAttribute("error", "Error al guardar el viaje: " + e.getMessage());
+            mostrarFormViaje(req, resp);
+        }
     }
+
+
+
 
 
 
@@ -239,19 +282,19 @@ public class GestionController extends HttpServlet {
     private void actualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int viajeId = Integer.parseInt(req.getParameter("viajeId"));
-            String busId = req.getParameter("busId"); // Mantenemos busId como String
+            String busId = req.getParameter("busId");
             int rutaId = Integer.parseInt(req.getParameter("rutaId"));
             String fecha = req.getParameter("fecha");
             String horaDeSalida = req.getParameter("horaDeSalida");
             String jornada = req.getParameter("jornada");
 
-            Bus bus = busDAO.obtenerBusPorId(busId); // Aquí deberías tener un método que acepte String
+            Bus bus = busDAO.obtenerBusPorId(busId);
             Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
             Date fechaViaje = Date.valueOf(fecha);
 
             // Asegúrate de que horaDeSalida tenga el formato adecuado
             if (horaDeSalida != null && !horaDeSalida.isEmpty()) {
-                horaDeSalida = horaDeSalida.trim(); // Quitamos espacios extra
+                horaDeSalida = horaDeSalida.trim();
             } else {
                 throw new IllegalArgumentException("Hora de salida no puede ser vacía.");
             }
