@@ -30,7 +30,11 @@
     <input type="time" name="horaDeSalida" id="horaDeSalida" required>
 
     <label for="jornada">Jornada:</label>
-    <input type="text" name="jornada" id="jornada" required>
+    <select name="jornada" id="jornada" required>
+        <option value="">Seleccione una jornada</option>
+        <option value="Matutina">Matutina</option>
+        <option value="Vespertina">Vespertina</option>
+    </select>
 
     <button type="submit">Agregar Viaje</button>
 </form>

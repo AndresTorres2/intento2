@@ -9,11 +9,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/polibus"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
-<<<<<<< HEAD
             <property name="jakarta.persistence.jdbc.password" value="admin"/>
-=======
-            <property name="jakarta.persistence.jdbc.password" value="adminBD"/>
->>>>>>> 9eb210b76134a35f44efd018b1ce01a97afb3433
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
