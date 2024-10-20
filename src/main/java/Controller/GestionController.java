@@ -49,8 +49,11 @@ public class GestionController extends HttpServlet {
     public void ruteador(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String ruta = (req.getParameter("action") == null) ? "login" : req.getParameter("action");
         switch (ruta) {
+            case "mostrarLogin":
+                mostrarLogin(req, resp);
+                break;
             case "validarUsuario":
-
+                validarCredenciales(req, resp);
                 break;
             case "dashboardAdmin":
                 //Aca redireccionamos a una vista donde seleccionara que quiere ver, por ejemplo se muestra Rutas, Viajes, Conductores
@@ -126,6 +129,31 @@ public class GestionController extends HttpServlet {
 
     }
 
+    public void mostrarLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/login.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    public void validarCredenciales(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        if (usuarioDAO.validarCredenciales(email, password)) {
+            String tipoUsuario = usuarioDAO.obtenerTipoDeUsuario(email);
+
+            if ("U_Administrador".equals(tipoUsuario)) {
+                resp.sendRedirect(req.getContextPath() + "/View/dashboardAdmin.jsp");
+            } else if ("U_Estudiante".equals(tipoUsuario)) {
+                resp.sendRedirect(req.getContextPath() + "/View/listarViajes.jsp");
+            } else if ("U_Conductor".equals(tipoUsuario)) {
+                resp.sendRedirect(req.getContextPath() + "/View/gestionBuses.jsp");
+            }
+        } else {
+            req.setAttribute("error", "Credenciales inválidas.");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/View/login.jsp");
+            dispatcher.forward(req, resp);
+        }
+    }
 
 
     public void mostrarDashboardAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

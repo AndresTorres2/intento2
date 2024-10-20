@@ -20,7 +20,7 @@
 
   <label for="calles">Selecciona Calles:</label><br/>
   <select name="calles" id="calles" multiple>
-    <c:forEach var="calle" items="${ruta.calles}"> <!-- Suponiendo que tienes una lista de todas las calles -->
+    <c:forEach var="calle" items="${ruta.calles}">
       <option value="${calle.id}"
       <c:if test="${fn:contains(ruta.calles, calle)}">selected</c:if>
       >${calle.nombre}</option>
