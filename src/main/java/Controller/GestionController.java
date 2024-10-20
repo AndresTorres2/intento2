@@ -3,9 +3,9 @@ package Controller;
 import Model.DAO.CalleDAO;
 import Model.DAO.RutaDAO;
 import Model.DAO.UsuarioDAO;
-import Model.Entity.Calle;
-import Model.Entity.Ruta;
-import Model.Entity.Usuario;
+import Model.DAO.ViajeDAO;
+import Model.DAO.BusDAO;
+import Model.Entity.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,8 @@ import java.util.List;
 public class GestionController extends HttpServlet {
     RutaDAO rutaDAO ;
     CalleDAO calleDAO ;
+    ViajeDAO viajeDAO;
+    BusDAO busDAO;
     public UsuarioDAO usuarioDAO ;
     @Override
     public void init() throws ServletException {
@@ -28,6 +32,8 @@ public class GestionController extends HttpServlet {
         rutaDAO = new RutaDAO();
         calleDAO = new CalleDAO();
         usuarioDAO = new UsuarioDAO();
+        viajeDAO = new ViajeDAO();
+        busDAO = new BusDAO();
     }
 
     @Override
@@ -72,6 +78,22 @@ public class GestionController extends HttpServlet {
             case "dashboardEstudiante":
                 //Redireccionar al viajeControler,es decir a la vista
                 break;
+
+            case "gestionViajes": // Nueva acción para gestionar viajes
+                gestionarViajes(req, resp);
+                break;
+            case "nuevoViaje":
+                mostrarFormViaje(req, resp);
+                break;
+            case "guardarViaje":
+                guardarViaje(req, resp);
+                break;
+            case "eliminarViaje":
+                break;
+            case "formActualizarViaje":
+                mostrarFormActualizarViaje(req, resp);
+                break;
+
             default:
                 break;
 
@@ -142,5 +164,42 @@ public class GestionController extends HttpServlet {
         dispatcher.forward(req, resp);
 
     }
+
+
+
+
+    // Métodos para gestionar viajes
+    public void gestionarViajes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setAttribute("viajes", viajeDAO.obtenerTodosLosViajes()); // Obtener todos los viajes
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionViaje.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+
+    public void mostrarFormViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    public void guardarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+
+    public void eliminarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    public void mostrarFormActualizarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+
+
+
+
+
+
+
 
 }

@@ -31,18 +31,72 @@ public class ViajeDAO extends GenericDAO{
         return viajes.get(id);
     }
 
-    public List<Viaje> filtrarPorRuta(Ruta ruta) {
-        List<Viaje> viajesFiltrados = new ArrayList<>();
 
-        for (Viaje viaje : viajes.values()) {
-            if (viaje.getRuta().equals(ruta)) {
-                viajesFiltrados.add(viaje);
+    public void crearViajeEnDB(Viaje viaje) {
+        try {
+            em.getTransaction().begin();
+            em.persist(viaje);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
+            e.printStackTrace();
         }
-
-        return viajesFiltrados;
     }
 
+    public boolean existeViajeEnDB(Integer id) {
+        return em.find(Viaje.class, id) != null;
+    }
+
+    public void eliminarViajeEnDB(Integer id) {
+        try {
+            Viaje viaje = em.find(Viaje.class, id);
+            if (viaje != null) {
+                em.getTransaction().begin();
+                em.remove(viaje);
+                em.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarViajeEnDB(Viaje nuevoViaje) {
+        try {
+            em.getTransaction().begin();
+            em.merge(nuevoViaje);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public Viaje obtenerViajeEnDB(Integer id) {
+        return em.find(Viaje.class, id);
+    }
+
+    public List<Viaje> obtenerTodosLosViajes() {
+        List<Viaje> viajes = new ArrayList<>();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("SELECT v FROM Viaje v", Viaje.class);
+            viajes = query.getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+        return viajes;
+    }
 
     public List<Object[]> listarViajesPorJornada(String jornada) {
         List<Object[]> resultList = new ArrayList<>();

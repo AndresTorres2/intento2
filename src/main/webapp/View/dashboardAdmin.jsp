@@ -48,7 +48,7 @@
     <a class="menu-item" href="">Conductores</a>
     <a class="menu-item" href="">Buses</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionRutas">Rutas</a>
-    <a class="menu-item" href="">Viajes</a>
+    <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionViajes">Viajes</a>
   </div>
 </div>
 </body>
