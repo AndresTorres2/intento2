@@ -36,10 +36,14 @@ public class Viaje implements Serializable {
     @Column(name = "asientosOcupados")
     private int asientosOcupados;
 
+    @ManyToOne
+    @JoinColumn(name = "conductorId")
+    private Conductor conductor;
+
     public Viaje() {
     }
 
-    public Viaje(int id, Bus bus, Date fecha, Time horaDeSalida, Ruta ruta, String jornada, int asientosOcupados) {
+    public Viaje(int id, Bus bus, Date fecha, Time horaDeSalida, Ruta ruta, String jornada, int asientosOcupados, Conductor conductor) {
         this.id = id;
         this.bus = bus;
         this.fecha = fecha;
@@ -47,6 +51,7 @@ public class Viaje implements Serializable {
         this.ruta = ruta;
         this.jornada = jornada;
         this.asientosOcupados =  asientosOcupados;
+        this.conductor = conductor;
     }
 
     public int getId() {
@@ -103,5 +108,13 @@ public class Viaje implements Serializable {
 
     public void setAsientosOcupados(int asientosOcupados) {
         this.asientosOcupados = asientosOcupados;
+    }
+
+    public Conductor getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Conductor conductor) {
+        this.conductor = conductor;
     }
 }

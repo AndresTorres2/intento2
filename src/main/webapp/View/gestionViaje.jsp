@@ -22,7 +22,7 @@
   <c:forEach var="viaje" items="${viajes}">
     <tr>
       <td>${viaje.id}</td>
-      <td>${viaje.bus.conductor.nombre} ${viaje.bus.conductor.apellido}</td>
+      <td>${viaje.conductor.nombre} ${viaje.conductor.apellido}</td>
       <td>${viaje.bus.busId}</td>
       <td>${viaje.fecha}</td>
       <td>${viaje.horaDeSalida}</td>

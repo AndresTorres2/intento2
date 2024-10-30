@@ -17,15 +17,7 @@
   <label for="capacidad">Capacidad:</label><br/>
   <input type="number" id="capacidad" name="capacidad" value="${bus.capacidad}" required/><br/><br/>
 
-  <label for="conductor">Conductor:</label><br/>
-  <select id="conductor" name="conductorId" required>
-    <option value="">Selecciona un conductor</option>
-    <c:forEach var="conductor" items="${conductores}">
-      <option value="${conductor.id}" ${conductor.id == bus.conductor.id ? 'selected' : ''}>
-          ${conductor.nombre} ${conductor.apellido}
-      </option>
-    </c:forEach>
-  </select><br/><br/>
+ <br/><br/>
 
   <input type="submit" value="Actualizar Bus" />
 </form>

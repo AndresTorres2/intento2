@@ -10,15 +10,11 @@ public class Bus implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "busId")
+    @Column(name = "id")
     private String busId;
 
     @Column(name = "capacidad")
     private int capacidad;
-
-    @OneToOne
-    @JoinColumn(name = "conductorId")
-    private Conductor conductor;
 
     public Bus() {
     }
@@ -26,7 +22,6 @@ public class Bus implements Serializable {
     public Bus(String id, int capacidad, Conductor conductor) {
         this.busId = id;
         this.capacidad = capacidad;
-        this.conductor = conductor;
 
     }
     public String getBusId() {
@@ -41,12 +36,6 @@ public class Bus implements Serializable {
     }
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
-    }
-    public Conductor getConductor() {
-        return conductor;
-    }
-    public void setConductor(Conductor conductor) {
-        this.conductor = conductor;
     }
 
 

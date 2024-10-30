@@ -26,9 +26,6 @@ public class BusDAOTest {
         assertNotNull(resultBus);
         assertEquals(expectedBus.getBusId(), resultBus.getBusId());
         assertEquals(expectedBus.getCapacidad(), resultBus.getCapacidad());
-        assertEquals(expectedBus.getConductor().getId(), resultBus.getConductor().getId());
-        assertEquals(expectedBus.getConductor().getNombre(), resultBus.getConductor().getNombre());
-        assertEquals(expectedBus.getConductor().getEmail(), resultBus.getConductor().getEmail());
     }
 
     @Test

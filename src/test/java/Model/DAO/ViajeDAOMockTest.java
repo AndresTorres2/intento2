@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.DAO.ViajeDAO;
+import Model.Entity.Conductor;
 import Model.Entity.Viaje;
 import Model.Entity.Bus;
 import Model.Entity.Ruta;
@@ -27,7 +28,7 @@ public class ViajeDAOMockTest {
     @Before
     public void setUp() {
         viaje = new Viaje(1, new Bus(), Date.valueOf("2024-10-01"),
-                Time.valueOf("10:00:00"), new Ruta(), "Mañana", 0);
+                Time.valueOf("10:00:00"), new Ruta(), "Mañana", 0, new Conductor());
     }
 
     @Test

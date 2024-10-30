@@ -442,11 +442,8 @@ public class GestionController extends HttpServlet {
     public void actualizarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String busIdStr = req.getParameter("busId");
         int capacidad = Integer.parseInt(req.getParameter("capacidad"));
-        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
-        Conductor conductorActualizado = conductorDAO.obtenerConductorDb(conductorId) ;
         Bus bus =  busDAO.obtenerBusPorId(busIdStr);
         bus.setCapacidad(capacidad);
-        bus.setConductor(conductorActualizado);
         busDAO.actualizarBusDb(bus);
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");

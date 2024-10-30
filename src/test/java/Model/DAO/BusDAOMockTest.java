@@ -35,15 +35,12 @@ public class BusDAOMockTest {
         verify(mockBusDAO, times(1)).actualizarBus(busId, nuevaCapacidad, nuevoConductor);
 
         bus.setCapacidad(nuevaCapacidad);
-        bus.setConductor(nuevoConductor);
 
         assertEquals(nuevaCapacidad, bus.getCapacidad());
-        assertEquals("Carlos", bus.getConductor().getNombre());
 
         // Imprime el resultado
         System.out.println("Prueba con Mockito: Se ha actualizado el bus correctamente" +
                 "\nBus actualizado: ID: " + bus.getBusId() +
-                ", Capacidad: " + bus.getCapacidad() +
-                ", Conductor: " + bus.getConductor().getNombre());
+                ", Capacidad: " + bus.getCapacidad());
     }
 }

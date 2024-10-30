@@ -21,7 +21,6 @@ public class BusDAO extends GenericDAO {
         Bus busExistente = busDatabase.get(id);
         if (busExistente != null) {
             busExistente.setCapacidad(nuevaCapacidad);
-            busExistente.setConductor(nuevoConductor);
             busDatabase.put(id, busExistente);
         }
     }
