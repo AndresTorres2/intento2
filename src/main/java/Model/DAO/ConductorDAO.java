@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ConductorDAO extends GenericDAO{
 
-    private static Map<Integer, Conductor> conductores = new HashMap<>();
+    private static Map<String, Conductor> conductores = new HashMap<>();
 
     // < 0  (0, "Cristian", "Hernandez", "andres@gmail.com", "0991935087", "1234")  >
 
@@ -17,13 +17,13 @@ public class ConductorDAO extends GenericDAO{
         conductores.put(conductor.getId(), conductor);
     }
 
-    public void eliminarConductor(int id) {
+    public void eliminarConductor(String id) {
         conductores.remove(id);
     }
 //    public void actualizarConductor(int id, Conductor nuevoConductor) {
 //        conductores.put(id, nuevoConductor);
 //    }
-    public Conductor buscarPorId(int id) {
+    public Conductor buscarPorId(String id) {
         return conductores.get(id);
     }
 
@@ -34,7 +34,7 @@ public class ConductorDAO extends GenericDAO{
         String jpql = "SELECT u FROM Usuario u WHERE TYPE(u) = Conductor";
         return em.createQuery(jpql, Usuario.class).getResultList();
     }
-    public Conductor obtenerConductorDb(int idConductor) {
+    public Conductor obtenerConductorDb(String idConductor) {
         try {
             Conductor conductor = em.find(Conductor.class, idConductor);
             return conductor;
@@ -43,7 +43,7 @@ public class ConductorDAO extends GenericDAO{
             return null;
         }
     }
-    public void eliminarConductorDb(int idConductor) {
+    public void eliminarConductorDb(String idConductor) {
         try {
             beginTransaction();
                 em.remove(obtenerConductorDb(idConductor));

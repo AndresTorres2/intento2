@@ -13,8 +13,8 @@ public class BusDAO extends GenericDAO {
 
     private static Map<String, Bus> busDatabase = new HashMap<>();
 
-    public Bus createBus(String id, int capacidad, Conductor conductor) {
-        busDatabase.put(id, new Bus(id, capacidad, conductor));
+    public Bus createBus(String id, int capacidad) {
+        busDatabase.put(id, new Bus(id, capacidad));
         return busDatabase.get(id);
     }
     public void actualizarBus(String id, int nuevaCapacidad, Conductor nuevoConductor) {

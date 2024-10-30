@@ -19,13 +19,13 @@ public class UsuarioDAOParametersTest {
     @Before
     public void setUp() {
         usuarioDAO = new UsuarioDAO();
-        usuarioDAO.guardarUsuario(new Usuario(3, "Sofia", "Martínez", "gerente@example.com", "09988888", "gerente123"));
-        usuarioDAO.guardarUsuario(new Usuario(2, "Carlos", "López", "profesor@example.com", "09999999", "estudiante123"));
-        usuarioDAO.guardarUsuario(new Usuario(1, "Eliath", "Velasco", "eliath@example.com", "09999998", "admin123"));
-        usuarioDAO.guardarUsuario(new Usuario(4, "Fernando", "García", "administrador@example.com", "09977777", "admin456"));
-        usuarioDAO.guardarUsuario(new Usuario(5, "Ana", "Pérez", "administrador@example.com", "09966666", "asisten2123"));
-        usuarioDAO.guardarUsuario(new Usuario(6, "Juan", "Rodríguez", "jefe@example.com", "09955555", "jefe123"));
-        usuarioDAO.guardarUsuario(new Usuario(7, "Marta", "Santos", "carlos@example.com", "09944444", "testpass"));
+        usuarioDAO.guardarUsuario(new Usuario("3", "Sofia", "Martínez", "gerente@example.com", "09988888", "gerente123"));
+        usuarioDAO.guardarUsuario(new Usuario("2", "Carlos", "López", "profesor@example.com", "09999999", "estudiante123"));
+        usuarioDAO.guardarUsuario(new Usuario("1", "Eliath", "Velasco", "eliath@example.com", "09999998", "admin123"));
+        usuarioDAO.guardarUsuario(new Usuario("4", "Fernando", "García", "administrador@example.com", "09977777", "admin456"));
+        usuarioDAO.guardarUsuario(new Usuario("5", "Ana", "Pérez", "administrador@example.com", "09966666", "asisten2123"));
+        usuarioDAO.guardarUsuario(new Usuario("6", "Juan", "Rodríguez", "jefe@example.com", "09955555", "jefe123"));
+        usuarioDAO.guardarUsuario(new Usuario("7", "Marta", "Santos", "carlos@example.com", "09944444", "testpass"));
     }
 
     @Parameterized.Parameters

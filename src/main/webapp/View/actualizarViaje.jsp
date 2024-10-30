@@ -42,6 +42,14 @@
     </select>
     <br>
 
+    <label for="conductor">Conductor:</label><br/>
+    <select id="conductor" name="conductorId" required>
+        <option value="">Selecciona un conductor</option>
+        <c:forEach var="conductor" items="${conductores}">
+            <option value="${conductor.id}">${conductor.nombre} ${conductor.apellido}</option>
+        </c:forEach>
+    </select><br/><br/>
+
     <input type="submit" value="Actualizar Viaje" />
 </form>
 

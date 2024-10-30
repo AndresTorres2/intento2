@@ -19,7 +19,7 @@ public class Bus implements Serializable {
     public Bus() {
     }
 
-    public Bus(String id, int capacidad, Conductor conductor) {
+    public Bus(String id, int capacidad) {
         this.busId = id;
         this.capacidad = capacidad;
 

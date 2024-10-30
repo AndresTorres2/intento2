@@ -7,12 +7,12 @@
             background: #100f0f;
             color: #d3d3d3;
             font-family: Arial, sans-serif;
-            padding: 0 4rem;
+            padding: 4rem;
             margin: 0;
             box-sizing: border-box;
         }
 
-        a {
+        input[type="submit"] {
         text-decoration: none;
         padding: 10px 20px;
         background-color: #48578e;
@@ -21,7 +21,7 @@
         display: inline-block;
         }
 
-        a:hover {
+        input[type="submit"]:hover {
         background-color: #71a8df;
         }
     </style>

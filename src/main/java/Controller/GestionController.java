@@ -130,9 +130,7 @@ public class GestionController extends HttpServlet {
                 break;
             default:
                 break;
-
         }
-
     }
 
     public void mostrarLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -224,21 +222,17 @@ public class GestionController extends HttpServlet {
 
     }
 
-
-
-
     // Métodos para gestionar viajes
     public void gestionarViajes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.setAttribute("viajes", viajeDAO.obtenerTodosLosViajes()); // Obtener todos los viajes
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionViaje.jsp");
         dispatcher.forward(req, resp);
     }
 
-
     public void mostrarFormViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses());
         req.setAttribute("rutas", rutaDAO.obtenerTodasLasRutas());
+        req.setAttribute("conductores", conductorDAO.obtenerConductores());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/registrarViaje.jsp");
         dispatcher.forward(req, resp);
     }
@@ -246,53 +240,43 @@ public class GestionController extends HttpServlet {
 
     public void guardarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Obtener parámetros del formulario
             String busId = req.getParameter("busId");
             int rutaId = Integer.parseInt(req.getParameter("rutaId"));
             String fecha = req.getParameter("fecha");
             String horaDeSalida = req.getParameter("horaDeSalida");
             String jornada = req.getParameter("jornada");
+            String conductorId = req.getParameter("conductorId");
 
-
-            // Obtener bus y ruta
+            Conductor conductor = conductorDAO.obtenerConductorDb(conductorId);
             Bus bus = busDAO.obtenerBusPorId(busId);
             Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
             Date fechaViaje = Date.valueOf(fecha);
 
-            // Verifica el formato de hora
             if (!horaDeSalida.matches("\\d{2}:\\d{2}:\\d{2}") && !horaDeSalida.matches("\\d{2}:\\d{2}")) {
                 throw new IllegalArgumentException("Formato de hora de salida no válido.");
             }
 
-            // Agregar los segundos si no están presentes
             if (horaDeSalida.matches("\\d{2}:\\d{2}")) {
                 horaDeSalida += ":00";
             }
 
             Time horaSalida = Time.valueOf(horaDeSalida);
 
-            // Crear el objeto Viaje
             Viaje nuevoViaje = new Viaje();
             nuevoViaje.setBus(bus);
             nuevoViaje.setRuta(ruta);
             nuevoViaje.setFecha(fechaViaje);
             nuevoViaje.setHoraDeSalida(horaSalida);
             nuevoViaje.setJornada(jornada);
+            nuevoViaje.setConductor(conductor);
 
-            // Guardar en la base de datos
             viajeDAO.crearViajeEnDB(nuevoViaje);
             gestionarViajes(req, resp);
         } catch (Exception e) {
-            // Manejar errores y mostrar mensajes en caso de fallos
             req.setAttribute("error", "Error al guardar el viaje: " + e.getMessage());
             mostrarFormViaje(req, resp);
         }
     }
-
-
-
-
-
 
     public void eliminarViaje(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         viajeDAO.eliminarViajeEnDB(Integer.parseInt(req.getParameter("viajeId")));
@@ -310,6 +294,8 @@ public class GestionController extends HttpServlet {
         req.setAttribute("viaje", viaje);
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses());
         req.setAttribute("rutas", rutaDAO.obtenerTodasLasRutas());
+        req.setAttribute("conductores", conductorDAO.obtenerConductores());
+
         forward(req, resp, "/View/actualizarViaje.jsp");
     }
 
@@ -322,31 +308,28 @@ public class GestionController extends HttpServlet {
             String horaDeSalida = req.getParameter("horaDeSalida");
             String jornada = req.getParameter("jornada");
 
+            Conductor conductor = conductorDAO.obtenerConductorDb(req.getParameter("conductorId"));
             Bus bus = busDAO.obtenerBusPorId(busId);
             Ruta ruta = rutaDAO.obtenerRutaId(rutaId);
             Date fechaViaje = Date.valueOf(fecha);
 
-            // Asegúrate de que horaDeSalida tenga el formato adecuado
             if (horaDeSalida != null && !horaDeSalida.isEmpty()) {
                 horaDeSalida = horaDeSalida.trim();
             } else {
                 throw new IllegalArgumentException("Hora de salida no puede ser vacía.");
             }
 
-            // Verificamos si el formato es HH:mm:ss o HH:mm
             if (!horaDeSalida.matches("\\d{2}:\\d{2}:\\d{2}") && !horaDeSalida.matches("\\d{2}:\\d{2}")) {
                 throw new IllegalArgumentException("Formato de hora de salida no válido: " + horaDeSalida);
             }
 
-            // Si el formato es HH:mm, le agregamos los segundos
             if (horaDeSalida.matches("\\d{2}:\\d{2}")) {
-                horaDeSalida += ":00"; // Agregamos los segundos
+                horaDeSalida += ":00";
             }
 
-            // Ahora intentamos crear la instancia de Time
             Time horaSalida;
             try {
-                horaSalida = Time.valueOf(horaDeSalida); // Utilizamos horaDeSalida ya corregida
+                horaSalida = Time.valueOf(horaDeSalida);
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Formato de hora de salida no válido: " + horaDeSalida, e);
             }
@@ -357,6 +340,7 @@ public class GestionController extends HttpServlet {
             viaje.setFecha(fechaViaje);
             viaje.setHoraDeSalida(horaSalida);
             viaje.setJornada(jornada);
+            viaje.setConductor(conductor);
 
             viajeDAO.actualizarViajeEnDB(viaje);
             gestionarViajes(req, resp);
@@ -376,7 +360,7 @@ public class GestionController extends HttpServlet {
     }
 
     public void eliminarConductor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
+        String conductorId = (req.getParameter("conductorId"));
         conductorDAO.eliminarConductorDb(conductorId);
         req.setAttribute("conductores", conductorDAO.obtenerConductores() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");
@@ -392,7 +376,7 @@ public class GestionController extends HttpServlet {
         String email = req.getParameter("email");
         String contrasena = req.getParameter("contrasena");
         String telefono = req.getParameter("telefono");
-        Conductor nuevoConductor = new Conductor(0, nombre, apellido, email, telefono, contrasena);
+        Conductor nuevoConductor = new Conductor("0", nombre, apellido, email, telefono, contrasena);
         conductorDAO.guardarConductorDb(nuevoConductor);
         req.setAttribute("conductores", conductorDAO.obtenerConductores() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");
@@ -422,9 +406,7 @@ public class GestionController extends HttpServlet {
     public void guardarBus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String busIdStr = req.getParameter("busId");
         int capacidad = Integer.parseInt(req.getParameter("capacidad"));
-        int conductorId = Integer.parseInt(req.getParameter("conductorId"));
-        Conductor conductor = conductorDAO.obtenerConductorDb(conductorId);
-        Bus nuevoBus = new Bus(busIdStr,capacidad,conductor);
+        Bus nuevoBus = new Bus(busIdStr,capacidad);
         busDAO.crearBusEnDB(nuevoBus);
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
@@ -448,8 +430,6 @@ public class GestionController extends HttpServlet {
         req.setAttribute("buses", busDAO.obtenerTodosLosBuses() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionBuses.jsp");
         dispatcher.forward(req,resp);
-
-
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse resp, String path) throws ServletException, IOException {

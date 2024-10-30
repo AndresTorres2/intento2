@@ -12,7 +12,7 @@ public class UsuarioDAO extends GenericDAO{
         super();
     }
 
-    private static Map<Integer, Usuario> usuarios = new HashMap<>();
+    private static Map<String, Usuario> usuarios = new HashMap<>();
 
     public void guardarUsuario(Usuario usuario) {
         usuarios.put(usuario.getId(), usuario);

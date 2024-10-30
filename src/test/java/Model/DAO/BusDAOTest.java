@@ -17,11 +17,9 @@ public class BusDAOTest {
     @Test
     public void given_Bus_when_Create_then_Bus_Is_Create_Successfully() {
 
-        Conductor conductor = new Conductor( 1, "Juan", "Perez",
-                "juanp@example.com", "0978648475", "123456789");
 
-        Bus expectedBus = new Bus("1", 40, conductor);
-        Bus resultBus = busDAO.createBus("1", 40, conductor);
+        Bus expectedBus = new Bus("1", 40);
+        Bus resultBus = busDAO.createBus("1", 40);
         //assertEquals(expectedBus,resultBus);
         assertNotNull(resultBus);
         assertEquals(expectedBus.getBusId(), resultBus.getBusId());
@@ -30,9 +28,7 @@ public class BusDAOTest {
 
     @Test
     public void given_Bus_when_Delete_then_Bus_Is_Delete_Successfully(){
-        Conductor conductor = new Conductor( 2, "Pepe", "Perez",
-                "juanp@example.com", "0978648475", "123456789");
-        busDAO.createBus("2", 40, conductor);
+        busDAO.createBus("2", 40);
         Bus expectedBus = busDAO.deleteBus("2");
         assertNotNull(expectedBus);
         assertEquals("2", expectedBus.getBusId());

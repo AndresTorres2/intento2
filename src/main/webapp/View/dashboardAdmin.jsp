@@ -6,15 +6,18 @@
   <title>Dashboard Admin - PoliBus</title>
   <style>
     body {
+      background: #100f0f;
+      color: #d3d3d3;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      padding: 4rem;
+      margin: 0;
+      box-sizing: border-box;
     }
+
     .dashboard-container {
       width: 80%;
       margin: 0 auto;
       padding: 20px;
-      background-color: white;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
     h1 {
@@ -26,7 +29,7 @@
       margin: 20px 0;
     }
     .menu-item {
-      background-color: #3498db;
+      background-color: #48578e;
       padding: 20px;
       width: 20%;
       text-align: center;
@@ -37,7 +40,7 @@
       transition: background-color 0.3s ease;
     }
     .menu-item:hover {
-      background-color: #2980b9;
+      background-color: #71a8df;
     }
   </style>
 </head>

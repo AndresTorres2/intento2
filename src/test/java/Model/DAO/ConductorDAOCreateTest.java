@@ -13,7 +13,7 @@ public class ConductorDAOCreateTest {
     @Test
     public void given_Conductor_when_Create_then_SuccessfullyStored() {
         conductorDAO = new ConductorDAO();
-        conductor = new Conductor(0, "Cristian", "Hernandez", "andres@gmail.com",
+        conductor = new Conductor("0", "Cristian", "Hernandez", "andres@gmail.com",
                 "0991935087", "1234");
         conductorDAO.guardarConductor(conductor);
 

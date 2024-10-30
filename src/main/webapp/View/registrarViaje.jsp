@@ -7,7 +7,6 @@
 <body>
 <h2>Registrar Nuevo Viaje</h2>
 
-
 <form action="${pageContext.request.contextPath}/GestionServlet?action=guardarViaje" method="post">
     <label for="busId">Bus:</label>
     <select name="busId" id="busId">
@@ -35,6 +34,14 @@
         <option value="Matutina">Matutina</option>
         <option value="Vespertina">Vespertina</option>
     </select>
+
+    <label for="conductor">Conductor:</label><br/>
+    <select id="conductor" name="conductorId" required>
+        <option value="">Selecciona un conductor</option>
+        <c:forEach var="conductor" items="${conductores}">
+            <option value="${conductor.id}">${conductor.nombre} ${conductor.apellido}</option>
+        </c:forEach>
+    </select><br/><br/>
 
     <button type="submit">Agregar Viaje</button>
 </form>
