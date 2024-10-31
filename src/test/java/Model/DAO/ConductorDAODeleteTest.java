@@ -14,7 +14,7 @@ public class ConductorDAODeleteTest {
     @Before
     public void setUp() {
         conductorDAO = new ConductorDAO();
-        conductor = new Conductor("0", "Cristian", "Hernandez", "andres@gmail.com",
+        conductor = new Conductor(1, "Cristian", "Hernandez", "andres@gmail.com",
                 "0991935087", "12345");
         conductorDAO.guardarConductor(conductor);
 
@@ -22,8 +22,8 @@ public class ConductorDAODeleteTest {
 
     @Test
     public void given_Conductor_when_Delete_then_RemovedSuccessfully() {
-        conductorDAO.eliminarConductor(conductor.getId());
-        Conductor conductorEliminado = conductorDAO.buscarPorId(conductor.getId());
+        conductorDAO.eliminarConductor(String.valueOf(conductor.getId()));
+        Conductor conductorEliminado = conductorDAO.buscarPorId(String.valueOf(conductor.getId()));
 
         assertNull("El conductor ha sido eliminado correctamente.", conductorEliminado);
     }

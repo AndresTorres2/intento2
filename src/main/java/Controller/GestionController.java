@@ -150,7 +150,7 @@ public class GestionController extends HttpServlet {
             } else if ("U_Estudiante".equals(tipoUsuario)) {
                 resp.sendRedirect(req.getContextPath() + "/View/listarViajes.jsp");
             } else if ("U_Conductor".equals(tipoUsuario)) {
-                resp.sendRedirect(req.getContextPath() + "/View/gestionBuses.jsp");
+                resp.sendRedirect(req.getContextPath() + "/View/dashboardConductor.jsp");
             }
         } else {
             req.setAttribute("error", "Credenciales inválidas.");
@@ -376,7 +376,7 @@ public class GestionController extends HttpServlet {
         String email = req.getParameter("email");
         String contrasena = req.getParameter("contrasena");
         String telefono = req.getParameter("telefono");
-        Conductor nuevoConductor = new Conductor("0", nombre, apellido, email, telefono, contrasena);
+        Conductor nuevoConductor = new Conductor(0, nombre, apellido, email, telefono, contrasena);
         conductorDAO.guardarConductorDb(nuevoConductor);
         req.setAttribute("conductores", conductorDAO.obtenerConductores() );
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionConductor.jsp");

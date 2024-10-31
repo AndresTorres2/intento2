@@ -15,7 +15,7 @@ public class UsuarioDAO extends GenericDAO{
     private static Map<String, Usuario> usuarios = new HashMap<>();
 
     public void guardarUsuario(Usuario usuario) {
-        usuarios.put(usuario.getId(), usuario);
+        usuarios.put(String.valueOf(usuario.getId()), usuario);
     }
 
     public boolean validarCredenciales(String email, String contraseña) {

@@ -14,7 +14,7 @@ public class ConductorDAO extends GenericDAO{
     // < 0  (0, "Cristian", "Hernandez", "andres@gmail.com", "0991935087", "1234")  >
 
     public void guardarConductor(Conductor conductor) {
-        conductores.put(conductor.getId(), conductor);
+        conductores.put(String.valueOf(conductor.getId()), conductor);
     }
 
     public void eliminarConductor(String id) {

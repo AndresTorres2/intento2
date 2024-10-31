@@ -23,7 +23,7 @@ public class BusDAOMockTest {
 
     @Test
     public void given_Bus_when_Update_then_Bus_Is_Updated_Successfully() {
-        Conductor nuevoConductor = new Conductor("1", "Carlos", "Nuñez", "carlos.nuñez@gmail.com", "0963346665", "carlos932");
+        Conductor nuevoConductor = new Conductor(1, "Carlos", "Nuñez", "carlos.nuñez@gmail.com", "0963346665", "carlos932");
         String busId = bus.getBusId();
         int nuevaCapacidad = 49;
 
