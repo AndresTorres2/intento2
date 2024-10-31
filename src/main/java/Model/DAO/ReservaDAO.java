@@ -1,15 +1,17 @@
 package Model.DAO;
 
+import Model.Entity.Bus;
 import Model.Entity.Reserva;
 import Model.Entity.Estudiante;
 import Model.Entity.Viaje;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ReservaDAO extends GenericDAO {
+    private static Map<Integer, Reserva> reservaDatabase = new HashMap<>();
+
 
     public ReservaDAO() {
         super();
@@ -96,6 +98,31 @@ public class ReservaDAO extends GenericDAO {
     }
 
 
+////CODIGO PARA LAS PRUEBAS UNITARIAS.
+    public void createReserva(Reserva reserva) {
+        reservaDatabase.put(reserva.getId(), reserva);
+    }
+
+
+    public Reserva readReserva(int id) {
+        return reservaDatabase.get(id);
+    }
+
+
+    public void deleteReserva(int id, boolean simulateError) {
+        if (simulateError) {
+            throw new RuntimeException("Error al eliminar la reserva");
+        }
+        reservaDatabase.remove(id);
+    }
+
+
+    public List<Reserva> getAllReservas(boolean simulateReadError) {
+        if (simulateReadError) {
+            throw new RuntimeException("Error al leer la base de datos");
+        }
+        return new ArrayList<>(reservaDatabase.values());
+    }
 
 
 

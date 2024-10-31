@@ -12,5 +12,7 @@ public class Estudiante extends Usuario {
     public Estudiante() {
     }
 
-
+    public Estudiante(int id, String nombre, String apellido, String email, String phone, String contrasena) {
+        super(id, nombre, apellido, email, phone, contrasena);
+    }
 }

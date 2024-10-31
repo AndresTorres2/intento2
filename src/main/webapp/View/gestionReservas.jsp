@@ -88,7 +88,7 @@
     <th>Bus</th>
     <th>Ruta</th>
     <th>Horario de Salida</th>
-    <th></th>
+
     <th></th>
   </tr>
   </thead>
@@ -100,9 +100,6 @@
       <td>${reserva.viaje.bus.busId}</td>
       <td>${reserva.viaje.ruta.origen} ➜ ${reserva.viaje.ruta.destino}</td>
       <td>${reserva.viaje.horaDeSalida}</td>
-      <td>
-        <a href="${pageContext.request.contextPath}/GestionServlet?action=formActualizarReserva&reservaId=${reserva.id}">Actualizar</a>
-      </td>
       <td>
         <a href="${pageContext.request.contextPath}/GestionServlet?action=eliminarReserva&reservaId=${reserva.id}" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');">Eliminar</a>
       </td>
