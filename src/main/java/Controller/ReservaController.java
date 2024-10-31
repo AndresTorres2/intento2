@@ -79,13 +79,10 @@ public class ReservaController extends HttpServlet {
     private void guardarReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String[] viajesIdsSeleccionados = request.getParameterValues("idsViajesSeleccionados");
-        Estudiante estudiante = estudianteDAO.obtenerEstudiantePorId("202110777");
+        Estudiante estudiante = estudianteDAO.obtenerEstudiantePorId(202110777);
         List<Viaje> listaViajes = viajeDAO.obtenerListaDeViajes(viajesIdsSeleccionados);
         reservaDAO.guardarVariasReservas(listaViajes, estudiante);
-
         response.sendRedirect(request.getContextPath() + "/View/listarViajes.jsp");
-
-
     }
 
     private void verReservasDia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

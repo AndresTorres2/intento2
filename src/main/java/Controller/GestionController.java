@@ -23,6 +23,8 @@ public class GestionController extends HttpServlet {
     BusDAO busDAO;
     UsuarioDAO usuarioDAO ;
     ConductorDAO conductorDAO;
+    ReservaDAO reservaDAO;
+    EstudianteDAO estudianteDAO;
 
     @Override
     public void init() throws ServletException {
@@ -33,6 +35,8 @@ public class GestionController extends HttpServlet {
         viajeDAO = new ViajeDAO();
         busDAO = new BusDAO();
         conductorDAO = new ConductorDAO();
+        reservaDAO = new ReservaDAO();
+        estudianteDAO = new EstudianteDAO();
     }
 
     @Override
@@ -61,6 +65,18 @@ public class GestionController extends HttpServlet {
                 break;
             case "gestionRutas":
                 gestionarRutas(req,resp);
+                break;
+            case "gestionReservas":
+                gestionarReservas(req,resp);
+                break;
+            case "eliminarReserva":
+                cancelarReservas(req,resp);
+                break;
+            case "crearReserva":
+                crearReserva(req,resp);
+                break;
+            case "nuevaReserva":
+                formNuevaReserva(req,resp);
                 break;
             case "nuevaRuta":
                 mostrarFormRuta(req,resp);
@@ -128,6 +144,7 @@ public class GestionController extends HttpServlet {
             case "busActualizado":
                 actualizarBus(req,resp);
                 break;
+
             default:
                 break;
         }
@@ -169,6 +186,34 @@ public class GestionController extends HttpServlet {
 
         req.setAttribute("rutas", rutaDAO.obtenerTodasLasRutas());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionRutas.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void gestionarReservas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("reservas", reservaDAO.obtenerTodasLasReservas());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionReservas.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void cancelarReservas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        reservaDAO.cancelarReserva(Integer.parseInt(req.getParameter("reservaId")),
+                reservaDAO.obtenerReservaPorId(Integer.parseInt(req.getParameter("reservaId"))).getViaje());
+    }
+    public void crearReserva(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+            int estudianteId = Integer.parseInt(req.getParameter("estudianteId"));
+            System.out.println("viaje" + viajeId);
+        System.out.println("estudiante" + estudianteId);
+            Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+        Reserva reserva = new Reserva(0, viaje, estudianteDAO.obtenerEstudiantePorId(estudianteId), new Date(System.currentTimeMillis()));
+            reservaDAO.guardarReserva(reserva,viaje);
+        req.setAttribute("mensaje", "Reserva realizada exitosamente.");
+        req.setAttribute("reservas", reservaDAO.obtenerTodasLasReservas());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/gestionReservas.jsp");
+        dispatcher.forward(req, resp);
+    }
+    public void formNuevaReserva(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("estudiantes",estudianteDAO.obtenerEstudiantes());
+        req.setAttribute("viajes", viajeDAO.obtenerTodosLosViajes());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/View/registrarReserva.jsp");
         dispatcher.forward(req, resp);
     }
     public void mostrarFormRuta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

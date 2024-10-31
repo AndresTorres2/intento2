@@ -52,6 +52,7 @@
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionBuses">Buses</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionRutas">Rutas</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionViajes">Viajes</a>
+    <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionReservas">Reservas</a>
   </div>
 </div>
 </body>
