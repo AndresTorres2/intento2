@@ -117,4 +117,5 @@ public class ReservaController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/ReservarAsientoServlet?action=consultarReservas");
 
     }
+
 }

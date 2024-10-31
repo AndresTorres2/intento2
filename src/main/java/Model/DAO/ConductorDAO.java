@@ -34,6 +34,7 @@ public class ConductorDAO extends GenericDAO{
         String jpql = "SELECT u FROM Usuario u WHERE TYPE(u) = Conductor";
         return em.createQuery(jpql, Usuario.class).getResultList();
     }
+
     public Conductor obtenerConductorDb(String idConductor) {
         try {
             Conductor conductor = em.find(Conductor.class, idConductor);

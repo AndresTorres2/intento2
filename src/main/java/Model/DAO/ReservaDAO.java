@@ -98,7 +98,57 @@ public class ReservaDAO extends GenericDAO {
     }
 
 
-////CODIGO PARA LAS PRUEBAS UNITARIAS.
+    public boolean verificarViajeVacio(Viaje viaje) {
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(r) FROM Reserva r WHERE r.viaje = :viaje", Long.class);
+            query.setParameter("viaje", viaje);
+            return query.getSingleResult() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public List<Estudiante> listarPasajerosPorViaje(Viaje viaje) {
+        List<Estudiante> pasajeros = new ArrayList<>();
+        try {
+            beginTransaction();
+            // Consulta para obtener los estudiantes de un viaje
+            TypedQuery<Estudiante> query = em.createQuery("SELECT r.estudiante FROM Reserva r WHERE r.viaje = :viaje", Estudiante.class);
+            query.setParameter("viaje", viaje);
+            pasajeros = query.getResultList();
+
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            e.printStackTrace();
+        }
+        return pasajeros;
+    }
+
+    public List<Estudiante> listarPasajerosPorViajeOrdenado(Viaje viaje) {
+        List<Estudiante> pasajeros = new ArrayList<>();
+        try {
+            beginTransaction();
+
+            // Consulta para obtener y ordenar los estudiantes por nombre en un viaje
+            TypedQuery<Estudiante> query = em.createQuery("SELECT r.estudiante FROM Reserva r WHERE r.viaje = :viaje ORDER BY r.estudiante.nombre ASC", Estudiante.class);
+            query.setParameter("viaje", viaje);
+            pasajeros = query.getResultList();
+
+            commitTransaction();
+        } catch (Exception e) {
+            rollbackTransaction();
+            e.printStackTrace();
+        }
+        return pasajeros;
+    }
+
+
+
+
+    ////CODIGO PARA LAS PRUEBAS UNITARIAS.
     public void createReserva(Reserva reserva) {
         reservaDatabase.put(reserva.getId(), reserva);
     }

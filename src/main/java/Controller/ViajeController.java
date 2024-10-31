@@ -6,9 +6,11 @@ import java.util.List;
 
 import Model.DAO.CalleDAO;
 import Model.DAO.ViajeDAO;
+import Model.DAO.ReservaDAO;
 import Model.Entity.Calle;
 import Model.Entity.Ruta;
 import Model.Entity.Viaje;
+import Model.Entity.Estudiante;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -18,10 +20,12 @@ import jakarta.servlet.annotation.*;
 public class ViajeController extends HttpServlet {
     private CalleDAO calleDAO;
     private ViajeDAO viajeDAO;
+    private ReservaDAO reservaDAO;
 
     public void init() {
         viajeDAO = new ViajeDAO();
         calleDAO = new CalleDAO();
+        reservaDAO = new ReservaDAO();
     }
 
     public void listarViajes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,6 +69,12 @@ public class ViajeController extends HttpServlet {
             case "verDetalles":
                 this.verDetallesViaje(req, resp);
                 break;
+            case "verificarViajeVacio":
+                this.verificarViajeVacio(req, resp);
+                break;
+            case "verPasajeros":
+                this.verPasajeros(req, resp);
+                break;
             default:
                 break;
 
@@ -77,4 +87,31 @@ public class ViajeController extends HttpServlet {
             req.setAttribute("destino", callesYCoordenadas.get(callesYCoordenadas.size() - 1));
         }
     }
+
+    // Verificar si el viaje tiene pasajeros
+    public void verificarViajeVacio(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+        Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+        boolean isVacio = reservaDAO.verificarViajeVacio(viaje);
+
+        req.setAttribute("isVacio", isVacio);
+        req.setAttribute("viaje", viaje);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("View/detallesViaje.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    // Listar pasajeros del viaje
+    public void verPasajeros(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int viajeId = Integer.parseInt(req.getParameter("viajeId"));
+        Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
+
+        List<Estudiante> pasajeros = reservaDAO.listarPasajerosPorViaje(viaje);
+        req.setAttribute("pasajeros", pasajeros);
+        req.setAttribute("viaje", viaje);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("View/listaPasajeros.jsp");
+        dispatcher.forward(req, resp);
+    }
+
 }
