@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <html>
 <head>
-  <title>Dashboard Admin - PoliBus</title>
+  <title>Menu Administrador - PoliBus</title>
   <style>
     body {
       background: #100f0f;
@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="dashboard-container">
-  <h1>Dashboard Admin - PoliBus</h1>
+  <h1>Menu Administrador - PoliBus</h1>
   <div class="menu">
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionConductores">Conductores</a>
     <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=gestionBuses">Buses</a>
