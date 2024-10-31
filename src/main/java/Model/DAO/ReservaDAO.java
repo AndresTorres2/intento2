@@ -125,6 +125,43 @@ public class ReservaDAO extends GenericDAO {
     }
 
 
+    //Estas si van
+    public boolean isViajeEmpty(Viaje viaje) {
+        for (Reserva reserva : reservaDatabase.values()) {
+            if (reserva.getViaje().equals(viaje)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Estudiante> listPassengersByViaje(Viaje viaje) {
+        List<Estudiante> pasajeros = new ArrayList<>();
+
+        for (Reserva reserva : reservaDatabase.values()) {
+            if (reserva.getViaje().equals(viaje)) {
+                pasajeros.add(reserva.getEstudiante());
+            }
+        }
+        return pasajeros;
+    }
+    public List<Estudiante> listPassengersByViajeSorted(Viaje viaje) {
+        List<Estudiante> pasajeros = new ArrayList<>();
+
+        for (Reserva reserva : reservaDatabase.values()) {
+            if (reserva.getViaje().equals(viaje)) {
+                pasajeros.add(reserva.getEstudiante());
+            }
+        }
+        pasajeros.sort(Comparator.comparing(Estudiante::getNombre));
+
+        return pasajeros;
+    }
+
+
+
+
+
 
 
 }
