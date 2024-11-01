@@ -27,13 +27,13 @@ public class ViajeDAOAdditionalTest {
         viajeDAO.crearViaje(viaje.getId(), viaje);
     }
 
-/*    @Test
-    public void given_Jornada_when_ListViajes_then_ReturnsCorrectViajes() {
-        List<Object[]> viajes = viajeDAO.listarViajesPorJornada("Mañana");
-        assertNotNull(viajes);
-        assertEquals(false, viajes.isEmpty());
-        System.out.println("Viajes encontrados para la jornada 'Mañana': " + viajes.size());
-    }*/
+//    @Test
+// public void given_Jornada_when_ListViajes_then_ReturnsCorrectViajes() {
+//     List<Object[]> viajes = viajeDAO.listarViajesPorJornada("Mañana");
+//     assertNotNull(viajes);
+//     assertEquals(false, viajes.isEmpty());
+//     System.out.println("Viajes encontrados para la jornada 'Mañana': " + viajes.size());
+// }
 
     @Test
     public void given_IdsArray_when_ConvertIdsToIntegers_then_ReturnsCorrectArray() {
