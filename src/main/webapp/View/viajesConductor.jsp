@@ -93,7 +93,6 @@
             </div>
             <div class="button-group">
                 <a href="${pageContext.request.contextPath}/ViajeServlet?ruta=verPasajeros&viajeId=${viaje.id}&conductorId=${viaje.conductor.id}">Ver listado de Pasajeros</a>
-
             </div>
         </div>
     </c:forEach>
