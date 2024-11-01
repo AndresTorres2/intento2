@@ -148,11 +148,25 @@ public class GestionController extends HttpServlet {
                 consultarViajesDelConductor(req,resp);
                 break;
 
+            case "compartirUbicacion":
+                compartirUbicacion(req, resp);
+                break;
+
             default:
                 break;
         }
     }
+    private void compartirUbicacion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String destinatario = "eliath.velasco@gmail.com";
+        String asunto = "Ubicación compartida";
+        String mensaje = "Esto es una prueba.";
 
+        req.setAttribute("email", destinatario);
+        req.setAttribute("asunto", asunto);
+        req.setAttribute("mensaje", mensaje);
+
+        req.getRequestDispatcher("/NotificacionServlet?action=notificar").forward(req, resp);
+    }
     public void mostrarLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/login.jsp");
         dispatcher.forward(req, resp);
