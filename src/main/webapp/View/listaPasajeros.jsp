@@ -49,7 +49,7 @@
             <div class="pasajero">
                 <p><strong>Nombre:</strong> ${pasajero.nombre} ${pasajero.apellido}</p>
                 <p><strong>ID de Estudiante:</strong> ${pasajero.id}</p>
-                <p><strong>Correo:</strong> ${pasajero.correo}</p>
+                <p><strong>Correo:</strong> ${pasajero.email}</p>
             </div>
         </c:forEach>
     </c:if>
@@ -59,7 +59,7 @@
     </c:if>
 
     <div class="back-link">
-        <a href="${pageContext.request.contextPath}/ViajeServlet?ruta=verDetalles&ids=${viaje.id}">Volver a Detalles del Viaje</a>
+        <a href="${pageContext.request.contextPath}/GestionServlet?action=consultarViajesConductor&conductorId=${viaje.conductor.id}">Volver a Mis Viajes</a>
     </div>
 </div>
 </body>

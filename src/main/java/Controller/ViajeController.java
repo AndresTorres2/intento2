@@ -105,13 +105,12 @@ public class ViajeController extends HttpServlet {
     public void verPasajeros(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int viajeId = Integer.parseInt(req.getParameter("viajeId"));
         Viaje viaje = viajeDAO.obtenerViajePorCodigo(viajeId);
-
-        List<Estudiante> pasajeros = reservaDAO.listarPasajerosPorViaje(viaje);
+        List<Estudiante> pasajeros = reservaDAO.listarPasajerosPorViajeOrdenado(viaje);
         req.setAttribute("pasajeros", pasajeros);
         req.setAttribute("viaje", viaje);
-
         RequestDispatcher dispatcher = req.getRequestDispatcher("View/listaPasajeros.jsp");
         dispatcher.forward(req, resp);
     }
+
 
 }
