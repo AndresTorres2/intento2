@@ -177,4 +177,21 @@ public class ViajeDAO extends GenericDAO{
 
         return viajesList;
     }
+
+
+    public List<Viaje> obtenerListaDeViajesPorConductor(int idConductor) {
+        List<Viaje> listaViajes = new ArrayList<>();
+        try {
+            String sql = "SELECT v FROM Viaje v WHERE v.conductor.id = :idConductor";
+
+            Query query = em.createQuery(sql, Viaje.class);
+            query.setParameter("idConductor", idConductor);
+
+            listaViajes = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaViajes;
+    }
+
 }

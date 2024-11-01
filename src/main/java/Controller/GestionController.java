@@ -144,6 +144,9 @@ public class GestionController extends HttpServlet {
             case "busActualizado":
                 actualizarBus(req,resp);
                 break;
+            case "consultarViajesConductor":
+                consultarViajesDelConductor(req,resp);
+                break;
 
             default:
                 break;
@@ -167,7 +170,9 @@ public class GestionController extends HttpServlet {
             } else if ("U_Estudiante".equals(tipoUsuario)) {
                 resp.sendRedirect(req.getContextPath() + "/View/listarViajes.jsp");
             } else if ("U_Conductor".equals(tipoUsuario)) {
-                resp.sendRedirect(req.getContextPath() + "/View/dashboardConductor.jsp");
+                Usuario conductor = usuarioDAO.buscarUsuarioPorEmail(email);
+                req.setAttribute("conductor", conductor);
+                req.getRequestDispatcher("/View/dashboardConductor.jsp").forward(req,resp);
             }
         } else {
             req.setAttribute("error", "Credenciales inválidas.");
@@ -180,6 +185,11 @@ public class GestionController extends HttpServlet {
     public void mostrarDashboardAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/View/dashboardAdmin.jsp");
         dispatcher.forward(req, resp);
+    }
+    public void consultarViajesDelConductor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+            req.setAttribute("viajes",viajeDAO.obtenerListaDeViajesPorConductor(Integer.parseInt(req.getParameter("conductorId"))));
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/View/viajesConductor.jsp");
+            dispatcher.forward(req, resp);
     }
 
     public void gestionarRutas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

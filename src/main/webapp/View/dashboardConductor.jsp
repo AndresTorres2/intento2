@@ -45,9 +45,10 @@
 <body>
 <div class="dashboard-container">
     <h1>Menú Principal del Conductor</h1>
+    <p>Bienvenido Conductor: ${conductor.nombre} ${conductor.apellido}</p>
     <br>
     <div class="menu">
-        <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=consultarViajesConductor">Ver mis Viajes</a>
+        <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=consultarViajesConductor&conductorId=${conductor.id}">Ver mis Viajes</a>
         <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=---">Compartir Ubicación</a>
     </div>
 </div>

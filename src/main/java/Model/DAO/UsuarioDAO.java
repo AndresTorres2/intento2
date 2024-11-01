@@ -3,6 +3,8 @@ import Model.Entity.Usuario;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 
@@ -37,23 +39,20 @@ public class UsuarioDAO extends GenericDAO{
         return valido;
     }
 
-    public Object[] buscarUsuarioPorEmail(String email) {
-        Object[] usuario = null;
+    public Usuario buscarUsuarioPorEmail(String email) {
+        Usuario usuario = null;
         try {
-            String sql = "SELECT tipo_usuario, id, apellidos, nombres, phone FROM usuarios WHERE email = :email";
-
-            Query query = em.createNativeQuery(sql);
+            String jpql = "SELECT u FROM Usuario u WHERE u.email = :email";
+            Query query = em.createQuery(jpql);
             query.setParameter("email", email);
-
-            List<Object[]> resultList = query.getResultList();
-            if (!resultList.isEmpty()) {
-                usuario = resultList.get(0);
-            }
-        } catch (Exception e) {
+            usuario = (Usuario) query.getSingleResult();
+        }
+         catch (Exception e) {
             e.printStackTrace();
         }
         return usuario;
     }
+
 
     public String obtenerTipoDeUsuario(String email) {
         String tipoUsuario = null;
