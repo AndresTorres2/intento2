@@ -49,7 +49,7 @@
     <br>
     <div class="menu">
         <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=consultarViajesConductor&conductorId=${conductor.id}">Ver mis Viajes</a>
-        <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=---">Compartir Ubicación</a>
+        <a class="menu-item" href="${pageContext.request.contextPath}/GestionServlet?action=compartirUbicacion">Compartir Ubicación</a>
     </div>
 </div>
 

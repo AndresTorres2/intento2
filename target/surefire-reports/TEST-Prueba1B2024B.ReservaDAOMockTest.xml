@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="Prueba1B2024B.ReservaDAOMockTest" time="2.445" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="Prueba1B2024B.ReservaDAOMockTest" time="2.206" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2024.2.3"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -46,7 +46,7 @@
     <property name="java.class.path" value="C:\Users\tandr\.m2\wrapper\dists\apache-maven-3.8.5-bin\5i5jha092a3i37g0paqnfr15e0\apache-maven-3.8.5\boot\plexus-classworlds-2.6.0.jar;C:\Users\tandr\.m2\wrapper\dists\apache-maven-3.8.5-bin\5i5jha092a3i37g0paqnfr15e0\apache-maven-3.8.5\boot\plexus-classworlds.license"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2024.2.3 test"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2024.2.3 package"/>
     <property name="java.home" value="C:\Users\tandr\.jdks\jbr-17.0.12"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -64,5 +64,5 @@
     <property name="intellij.os.virtualization" value="none"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Prueba1B2024B.ReservaDAOMockTest" name="given_Reserva_when_CreateError_then_ExceptionIsThrown" time="2.445"/>
+  <testcase classname="Prueba1B2024B.ReservaDAOMockTest" name="given_Reserva_when_CreateError_then_ExceptionIsThrown" time="2.206"/>
 </testsuite>
