@@ -1,5 +1,5 @@
 -- Conectar a la base de datos
-CONNECT 'jdbc:derby:/usr/local/tomcat/data/polibus;';
+CONNECT 'jdbc:derby:/usr/local/tomcat/polibus;';
 
 -- Insertar datos en la tabla Ubicaciones
 INSERT INTO Ubicaciones (latitud, longitud) VALUES
